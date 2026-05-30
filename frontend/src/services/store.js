@@ -1,13 +1,12 @@
-import create from "zustand";
-import type { ResumeStore } from "../types/store";
+import create from 'zustand';
 
-export const useResumeStore = create<ResumeStore>((set) => ({
+export const useResumeStore = create((set) => ({
   resumeFile: null,
-  jobDescription: "",
+  jobDescription: '',
   analysisResults: null,
   isLoading: false,
   error: null,
-  userRole: "job-seeker",
+  userRole: 'job-seeker',
 
   setResumeFile: (file) => set({ resumeFile: file }),
   setJobDescription: (description) => set({ jobDescription: description }),
@@ -19,7 +18,7 @@ export const useResumeStore = create<ResumeStore>((set) => ({
   reset: () =>
     set({
       resumeFile: null,
-      jobDescription: "",
+      jobDescription: '',
       analysisResults: null,
       isLoading: false,
       error: null,

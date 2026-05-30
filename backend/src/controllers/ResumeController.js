@@ -1,6 +1,5 @@
-import { Request, Response } from "express";
-import { ResumeAIService } from "../services/ResumeAIService";
-import { FileProcessingService } from "../services/FileProcessingService";
+import { ResumeAIService } from '../services/ResumeAIService.js';
+import { FileProcessingService } from '../services/FileProcessingService.js';
 
 const resumeAIService = new ResumeAIService();
 const fileProcessingService = new FileProcessingService();
@@ -10,13 +9,13 @@ export class ResumeController {
    * Upload and analyze resume (Job Seeker Perspective)
    * POST /api/resume/analyze-job-seeker
    */
-  static async analyzeForJobSeeker(req: Request, res: Response) {
+  static async analyzeForJobSeeker(req, res) {
     try {
       const file = req.file;
-      const jobDescription = req.body.jobDescription || "";
+      const jobDescription = req.body.jobDescription || '';
 
       if (!file) {
-        return res.status(400).json({ error: "No file uploaded" });
+        return res.status(400).json({ error: 'No file uploaded' });
       }
 
       // Extract text from file
@@ -65,13 +64,13 @@ export class ResumeController {
         },
       });
     } catch (error) {
-      console.error("Error analyzing resume:", error);
+      console.error('Error analyzing resume:', error);
       if (req.file) {
         fileProcessingService.cleanupFile(req.file.path);
       }
       res
         .status(500)
-        .json({ error: error instanceof Error ? error.message : "Unknown error" });
+        .json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   }
 
@@ -79,18 +78,18 @@ export class ResumeController {
    * Analyze resume for recruiter (Candidate Ranking)
    * POST /api/resume/analyze-recruiter
    */
-  static async analyzeForRecruiter(req: Request, res: Response) {
+  static async analyzeForRecruiter(req, res) {
     try {
       const file = req.file;
       const jobDescription = req.body.jobDescription;
-      const candidateName = req.body.candidateName || "Candidate";
+      const candidateName = req.body.candidateName || 'Candidate';
 
       if (!file) {
-        return res.status(400).json({ error: "No file uploaded" });
+        return res.status(400).json({ error: 'No file uploaded' });
       }
 
       if (!jobDescription) {
-        return res.status(400).json({ error: "Job description required" });
+        return res.status(400).json({ error: 'Job description required' });
       }
 
       // Extract text from file
@@ -125,13 +124,13 @@ export class ResumeController {
         },
       });
     } catch (error) {
-      console.error("Error analyzing for recruiter:", error);
+      console.error('Error analyzing for recruiter:', error);
       if (req.file) {
         fileProcessingService.cleanupFile(req.file.path);
       }
       res
         .status(500)
-        .json({ error: error instanceof Error ? error.message : "Unknown error" });
+        .json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   }
 
@@ -139,12 +138,12 @@ export class ResumeController {
    * Extract resume data only
    * POST /api/resume/extract
    */
-  static async extractResume(req: Request, res: Response) {
+  static async extractResume(req, res) {
     try {
       const file = req.file;
 
       if (!file) {
-        return res.status(400).json({ error: "No file uploaded" });
+        return res.status(400).json({ error: 'No file uploaded' });
       }
 
       // Extract text from file
@@ -161,13 +160,13 @@ export class ResumeController {
         data: parsedResume,
       });
     } catch (error) {
-      console.error("Error extracting resume:", error);
+      console.error('Error extracting resume:', error);
       if (req.file) {
         fileProcessingService.cleanupFile(req.file.path);
       }
       res
         .status(500)
-        .json({ error: error instanceof Error ? error.message : "Unknown error" });
+        .json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   }
 
@@ -175,17 +174,17 @@ export class ResumeController {
    * Batch analyze multiple resumes for recruitment
    * POST /api/resume/batch-analyze
    */
-  static async batchAnalyzeResumes(req: Request, res: Response) {
+  static async batchAnalyzeResumes(req, res) {
     try {
-      const files = req.files as Express.Multer.File[];
+      const files = req.files;
       const jobDescription = req.body.jobDescription;
 
       if (!files || files.length === 0) {
-        return res.status(400).json({ error: "No files uploaded" });
+        return res.status(400).json({ error: 'No files uploaded' });
       }
 
       if (!jobDescription) {
-        return res.status(400).json({ error: "Job description required" });
+        return res.status(400).json({ error: 'Job description required' });
       }
 
       const results = [];
@@ -201,26 +200,27 @@ export class ResumeController {
           );
 
           results.push({
-            fileName: file.originalname,
-            candidateName: parsedResume.contactInfo?.fullName,
+            filename: file.originalname,
+            candidateName: parsedResume.contactInfo?.fullName || 'Unknown',
             ranking,
           });
 
           fileProcessingService.cleanupFile(file.path);
         } catch (error) {
-          console.error(`Error processing file ${file.originalname}:`, error);
+          console.error(`Error processing ${file.originalname}:`, error);
           results.push({
-            fileName: file.originalname,
-            error: "Failed to process file",
+            filename: file.originalname,
+            error: error instanceof Error ? error.message : 'Unknown error',
           });
         }
       }
 
       // Sort by overall score descending
-      results.sort(
-        (a, b) =>
-          (b.ranking?.overallScore || 0) - (a.ranking?.overallScore || 0)
-      );
+      results.sort((a, b) => {
+        const scoreA = a.ranking?.overallScore || 0;
+        const scoreB = b.ranking?.overallScore || 0;
+        return scoreB - scoreA;
+      });
 
       res.json({
         success: true,
@@ -230,10 +230,10 @@ export class ResumeController {
         },
       });
     } catch (error) {
-      console.error("Error batch analyzing resumes:", error);
+      console.error('Error in batch analysis:', error);
       res
         .status(500)
-        .json({ error: error instanceof Error ? error.message : "Unknown error" });
+        .json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   }
 }
