@@ -46,94 +46,112 @@ const RecruiterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-slate-50 py-12 px-4 fade-in">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-2">Candidate Analyzer</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-4xl font-extrabold mb-3 text-slate-800 tracking-tight">Candidate Analyzer</h1>
+        <p className="text-slate-600 mb-8 text-lg">
           Streamline your hiring process with AI-powered candidate ranking and
-          unbiased screening
+          unbiased screening.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
             <FileUploader
               onFileSelect={setResumeFile}
               label="Upload Candidate Resume"
             />
             {resumeFile && (
-              <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded">
-                <p className="text-sm text-green-800">
-                  ✓ File uploaded: {resumeFile.name}
+              <div className="mt-6 p-4 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center">
+                <span className="text-indigo-500 mr-3 text-xl">✓</span>
+                <p className="font-medium text-indigo-800">
+                  Ready to analyze: {resumeFile.name}
                 </p>
               </div>
             )}
 
-            <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Job Description *
+            <div className="mt-8">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Job Description <span className="text-red-500">*</span>
               </label>
               <textarea
                 ref={textareaRef}
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the job requirements and description..."
-                className="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full h-40 p-4 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all text-slate-700 font-sans resize-none"
               />
-              <p className="text-xs text-gray-500 mt-1">Required</p>
+              <p className="text-xs text-slate-500 mt-2 font-medium">Required for matching evaluation</p>
             </div>
 
             <button
               onClick={handleAnalyze}
               disabled={!resumeFile || !jobDescription || isLoading}
-              className="mt-6 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition-colors"
+              className={`mt-8 w-full py-4 rounded-xl font-bold text-lg transition-all flex justify-center items-center ${
+                isLoading || !resumeFile || !jobDescription
+                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                  : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 hover:-translate-y-0.5'
+              }`}
             >
-              {isLoading ? 'Analyzing...' : 'Analyze Candidate'}
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Analyzing Candidate...
+                </>
+              ) : (
+                'Analyze Candidate'
+              )}
             </button>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="font-semibold text-lg mb-4">Benefits</h3>
-            <ul className="space-y-3 text-sm">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 h-fit">
+            <h3 className="font-bold text-xl mb-6 text-slate-800">Recruiter Benefits</h3>
+            <ul className="space-y-5 text-sm text-slate-600 font-medium">
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span>Automated candidate ranking</span>
+                <span className="text-indigo-500 mr-3 text-lg">✨</span>
+                <span className="mt-0.5">Automated candidate ranking</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span>Skills match scoring</span>
+                <span className="text-indigo-500 mr-3 text-lg">✨</span>
+                <span className="mt-0.5">Skills match scoring</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span>Experience gap analysis</span>
+                <span className="text-indigo-500 mr-3 text-lg">✨</span>
+                <span className="mt-0.5">Experience gap analysis</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span>Bias-free evaluation</span>
+                <span className="text-indigo-500 mr-3 text-lg">✨</span>
+                <span className="mt-0.5">Bias-free evaluation</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span>Structured data extraction</span>
+                <span className="text-indigo-500 mr-3 text-lg">✨</span>
+                <span className="mt-0.5">Structured data extraction</span>
               </li>
             </ul>
           </div>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-6">
+          <div className="bg-red-50 border border-red-100 text-red-700 px-6 py-4 rounded-xl mb-8 flex items-center font-medium">
+            <span className="mr-3 text-xl">⚠️</span>
             {error}
           </div>
         )}
 
         {analysisResults && analysisResults.ranking && (
-          <CandidateRanking
-            candidateName={analysisResults.candidateName}
-            overallScore={analysisResults.ranking.overallScore}
-            skills={analysisResults.ranking.skills}
-            experience={analysisResults.ranking.experience}
-            education={analysisResults.ranking.education}
-            strengths={analysisResults.ranking.strengths}
-            gaps={analysisResults.ranking.gaps}
-          />
+          <div className="animate-in slide-in-from-bottom-8 duration-700">
+            <CandidateRanking
+              candidateName={analysisResults.candidateName}
+              overallScore={analysisResults.ranking.overallScore}
+              skills={analysisResults.ranking.skills}
+              experience={analysisResults.ranking.experience}
+              education={analysisResults.ranking.education}
+              strengths={analysisResults.ranking.strengths}
+              gaps={analysisResults.ranking.gaps}
+            />
+          </div>
         )}
       </div>
     </div>

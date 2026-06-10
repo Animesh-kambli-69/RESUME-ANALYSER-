@@ -42,30 +42,31 @@ const JobSeekerPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-slate-50 py-12 px-4 fade-in">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-2">Resume Analyzer</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-4xl font-extrabold mb-3 text-slate-800 tracking-tight">Resume Analyzer</h1>
+        <p className="text-slate-600 mb-8 text-lg">
           Optimize your resume for ATS systems and increase your chances of
-          getting hired
+          getting hired.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
             <FileUploader
               onFileSelect={setResumeFile}
               label="Upload Your Resume"
             />
             {resumeFile && (
-              <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded">
-                <p className="text-sm text-green-800">
-                  ✓ File uploaded: {resumeFile.name}
+              <div className="mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center">
+                <span className="text-emerald-500 mr-3 text-xl">✓</span>
+                <p className="font-medium text-emerald-800">
+                  Ready to analyze: {resumeFile.name}
                 </p>
               </div>
             )}
 
-            <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="mt-8">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Job Description (Optional)
               </label>
               <textarea
@@ -73,56 +74,71 @@ const JobSeekerPage = () => {
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the job description here to get keyword optimization tips..."
-                className="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full h-40 p-4 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-700 font-sans resize-none"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-slate-500 mt-2 font-medium">
                 Providing a job description will help identify missing keywords
-                and skills
+                and skills.
               </p>
             </div>
 
             <button
               onClick={handleAnalyze}
               disabled={!resumeFile || isLoading}
-              className="mt-6 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition-colors"
+              className={`mt-8 w-full py-4 rounded-xl font-bold text-lg transition-all flex justify-center items-center ${
+                isLoading || !resumeFile
+                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 hover:-translate-y-0.5'
+              }`}
             >
-              {isLoading ? 'Analyzing...' : 'Analyze Resume'}
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Analyzing with Local AI...
+                </>
+              ) : (
+                'Analyze Resume'
+              )}
             </button>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="font-semibold text-lg mb-4">How it Works</h3>
-            <ol className="space-y-3 text-sm">
-              <li className="flex">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mr-2 flex-shrink-0">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 h-fit">
+            <h3 className="font-bold text-xl mb-6 text-slate-800">How it Works</h3>
+            <ol className="space-y-6 text-sm text-slate-600 font-medium">
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-50 text-blue-600 font-bold mr-4">
                   1
                 </span>
-                <span>Upload your resume (PDF, DOCX, or TXT)</span>
+                <span className="mt-1">Upload your resume (PDF, DOCX, or TXT)</span>
               </li>
-              <li className="flex">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mr-2 flex-shrink-0">
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-50 text-blue-600 font-bold mr-4">
                   2
                 </span>
-                <span>Paste job description (optional but recommended)</span>
+                <span className="mt-1">Paste job description (optional but recommended)</span>
               </li>
-              <li className="flex">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mr-2 flex-shrink-0">
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-50 text-blue-600 font-bold mr-4">
                   3
                 </span>
-                <span>Get instant feedback on ATS compatibility</span>
+                <span className="mt-1">Get instant feedback on ATS compatibility</span>
               </li>
-              <li className="flex">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mr-2 flex-shrink-0">
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-50 text-blue-600 font-bold mr-4">
                   4
                 </span>
-                <span>View keyword optimization suggestions</span>
+                <span className="mt-1">View keyword optimization suggestions</span>
               </li>
             </ol>
           </div>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-6">
+          <div className="bg-red-50 border border-red-100 text-red-700 px-6 py-4 rounded-xl mb-8 flex items-center font-medium">
+            <span className="mr-3 text-xl">⚠️</span>
             {error}
           </div>
         )}

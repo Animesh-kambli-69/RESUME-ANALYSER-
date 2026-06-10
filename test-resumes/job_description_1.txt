@@ -1,0 +1,48 @@
+JOB DESCRIPTION - SENIOR FULL STACK DEVELOPER
+
+Position Title: Senior Full Stack Developer
+Company: Tech Innovation Inc.
+Location: Remote / San Francisco, CA
+
+About Us:
+We are a fast-growing fintech company focused on revolutionizing payment solutions.
+
+Job Summary:
+We're looking for an experienced Full Stack Developer to join our engineering team. 
+You'll be responsible for building and maintaining scalable web applications that 
+serve millions of transactions daily.
+
+Key Responsibilities:
+• Design and implement robust backend APIs using Node.js and PostgreSQL
+• Build responsive frontend interfaces with React and TypeScript
+• Collaborate with product and design teams to deliver features
+• Optimize application performance and implement security best practices
+• Write clean, maintainable code and participate in code reviews
+• Mentor junior developers and contribute to technical documentation
+
+Required Skills:
+• 5+ years of full-stack development experience
+• Strong proficiency in JavaScript/TypeScript
+• Experience with React and Node.js
+• Knowledge of relational databases (PostgreSQL preferred)
+• Experience with REST APIs and microservices
+• Familiarity with Docker and containerization
+• Understanding of security best practices
+• Strong problem-solving and communication skills
+
+Preferred Qualifications:
+• Experience with cloud platforms (AWS preferred)
+• Knowledge of CI/CD pipelines
+• Contributions to open source projects
+• Agile/Scrum experience
+
+What We Offer:
+• Competitive salary: $120,000 - $160,000
+• Remote work flexibility
+• Professional development budget
+• Health insurance and 401k
+• Stock options
+• Collaborative and innovative work environment
+
+How to Apply:
+Submit your resume, portfolio, and cover letter to careers@techinnovation.com
