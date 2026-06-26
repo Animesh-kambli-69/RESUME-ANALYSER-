@@ -1,53 +1,122 @@
-import React from 'react';
-import HomePage from './pages/HomePage';
-import JobSeekerPage from './pages/JobSeekerPage';
-import RecruiterPage from './pages/RecruiterPage';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
 
 function App() {
-  const [currentPage, setCurrentPage] = React.useState('home');
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'job-seeker':
-        return <JobSeekerPage />;
-      case 'recruiter':
-        return <RecruiterPage />;
-      case 'home':
-      default:
-        return <HomePage onNavigate={setCurrentPage} />;
-    }
-  };
+  const [count, setCount] = useState(0)
 
   return (
-    <div className="min-h-screen bg-[#070708] text-white">
-      {currentPage !== 'home' && (
-        <nav className="bg-[#0c0c0e] border-b border-zinc-900 sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
-          <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <button
-              onClick={() => setCurrentPage('home')}
-              className="text-2xl font-extrabold text-white flex items-center gap-2"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 256 256" fill="#ffffff">
-                <path d="M 256 256 L 128 256 L 0 128 L 128 128 Z M 256 128 L 128 128 L 0 0 L 128 0 Z" />
-              </svg>
-              <span className="font-playfair italic">Lithos</span>
-            </button>
-            <div className="space-x-2">
-              <button
-                onClick={() => setCurrentPage('home')}
-                className="px-4 py-2 rounded-full font-medium text-zinc-300 hover:bg-zinc-900 hover:text-white transition-all text-sm"
-              >
-                Back to Home
-              </button>
-            </div>
-          </div>
-        </nav>
-      )}
-      <main className="animate-in fade-in duration-500">
-        {renderPage()}
-      </main>
-    </div>
-  );
+    <>
+      <section id="center">
+        <div className="hero">
+          <img src={heroImg} className="base" width="170" height="179" alt="" />
+          <img src={reactLogo} className="framework" alt="React logo" />
+          <img src={viteLogo} className="vite" alt="Vite logo" />
+        </div>
+        <div>
+          <h1>Get started</h1>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+          </p>
+        </div>
+        <button
+          type="button"
+          className="counter"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </button>
+      </section>
+
+      <div className="ticks"></div>
+
+      <section id="next-steps">
+        <div id="docs">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#documentation-icon"></use>
+          </svg>
+          <h2>Documentation</h2>
+          <p>Your questions, answered</p>
+          <ul>
+            <li>
+              <a href="https://vite.dev/" target="_blank">
+                <img className="logo" src={viteLogo} alt="" />
+                Explore Vite
+              </a>
+            </li>
+            <li>
+              <a href="https://react.dev/" target="_blank">
+                <img className="button-icon" src={reactLogo} alt="" />
+                Learn more
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="social">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#social-icon"></use>
+          </svg>
+          <h2>Connect with us</h2>
+          <p>Join the Vite community</p>
+          <ul>
+            <li>
+              <a href="https://github.com/vitejs/vite" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#github-icon"></use>
+                </svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://chat.vite.dev/" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#discord-icon"></use>
+                </svg>
+                Discord
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/vite_js" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#x-icon"></use>
+                </svg>
+                X.com
+              </a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/vite.dev" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#bluesky-icon"></use>
+                </svg>
+                Bluesky
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div className="ticks"></div>
+      <section id="spacer"></section>
+    </>
+  )
 }
 
-export default App;
+export default App
