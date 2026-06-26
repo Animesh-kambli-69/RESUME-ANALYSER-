@@ -19,49 +19,30 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm transition-all">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <button
-            onClick={() => setCurrentPage('home')}
-            className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-80 transition-opacity"
-          >
-            📄 ResumeAI
-          </button>
-          <div className="space-x-2">
+    <div className="min-h-screen bg-[#070708] text-white">
+      {currentPage !== 'home' && (
+        <nav className="bg-[#0c0c0e] border-b border-zinc-900 sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
+          <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <button
               onClick={() => setCurrentPage('home')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                currentPage === 'home'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-200'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className="text-2xl font-extrabold text-white flex items-center gap-2"
             >
-              Home
+              <svg className="w-6 h-6" viewBox="0 0 256 256" fill="#ffffff">
+                <path d="M 256 256 L 128 256 L 0 128 L 128 128 Z M 256 128 L 128 128 L 0 0 L 128 0 Z" />
+              </svg>
+              <span className="font-playfair italic">Lithos</span>
             </button>
-            <button
-              onClick={() => setCurrentPage('job-seeker')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                currentPage === 'job-seeker'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-200'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              Job Seekers
-            </button>
-            <button
-              onClick={() => setCurrentPage('recruiter')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                currentPage === 'recruiter'
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              Recruiters
-            </button>
+            <div className="space-x-2">
+              <button
+                onClick={() => setCurrentPage('home')}
+                className="px-4 py-2 rounded-full font-medium text-zinc-300 hover:bg-zinc-900 hover:text-white transition-all text-sm"
+              >
+                Back to Home
+              </button>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
       <main className="animate-in fade-in duration-500">
         {renderPage()}
       </main>

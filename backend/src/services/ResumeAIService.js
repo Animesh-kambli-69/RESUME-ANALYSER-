@@ -82,7 +82,12 @@ export class ResumeAIService {
       return this._mockParseResume(resumeText);
     }
     if (this.aiMode === 'ollama') {
-      return this._parseResumeWithOllama(resumeText);
+      try {
+        return await this._parseResumeWithOllama(resumeText);
+      } catch (err) {
+        console.warn('⚠️ Ollama parseResume failed. Falling back to Mock response.', err.message);
+        return this._mockParseResume(resumeText);
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
@@ -189,7 +194,12 @@ ${resumeText}`;
       return this._mockAnalyzeAts();
     }
     if (this.aiMode === 'ollama') {
-      return this._analyzeAtsWithOllama(resumeText);
+      try {
+        return await this._analyzeAtsWithOllama(resumeText);
+      } catch (err) {
+        console.warn('⚠️ Ollama analyzeAtsCompatibility failed. Falling back to Mock response.', err.message);
+        return this._mockAnalyzeAts();
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
@@ -243,7 +253,12 @@ ${resumeText}`;
       return this._mockAnalyzeKeywords();
     }
     if (this.aiMode === 'ollama') {
-      return this._analyzeKeywordsWithOllama(resumeText, jobDescription);
+      try {
+        return await this._analyzeKeywordsWithOllama(resumeText, jobDescription);
+      } catch (err) {
+        console.warn('⚠️ Ollama analyzeKeywords failed. Falling back to Mock response.', err.message);
+        return this._mockAnalyzeKeywords();
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
@@ -302,7 +317,12 @@ ${resumeText}`;
       return this._mockRankCandidate();
     }
     if (this.aiMode === 'ollama') {
-      return this._rankCandidateWithOllama(resumeData, jobDescription, candidateName);
+      try {
+        return await this._rankCandidateWithOllama(resumeData, jobDescription, candidateName);
+      } catch (err) {
+        console.warn('⚠️ Ollama rankCandidate failed. Falling back to Mock response.', err.message);
+        return this._mockRankCandidate();
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
@@ -374,7 +394,12 @@ Resume: ${JSON.stringify(resumeData, null, 2)}`;
       return this._mockCheckBias();
     }
     if (this.aiMode === 'ollama') {
-      return this._checkBiasWithOllama(resumeText);
+      try {
+        return await this._checkBiasWithOllama(resumeText);
+      } catch (err) {
+        console.warn('⚠️ Ollama checkBiasReduction failed. Falling back to Mock response.', err.message);
+        return this._mockCheckBias();
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
@@ -414,7 +439,12 @@ ${resumeText}`;
       return this._mockGenerateRecommendations();
     }
     if (this.aiMode === 'ollama') {
-      return this._generateRecommendationsWithOllama(resumeText, jobDescription);
+      try {
+        return await this._generateRecommendationsWithOllama(resumeText, jobDescription);
+      } catch (err) {
+        console.warn('⚠️ Ollama generateRecommendations failed. Falling back to Mock response.', err.message);
+        return this._mockGenerateRecommendations();
+      }
     }
     throw new Error(`Unknown AI_MODE: ${this.aiMode}`);
   }
